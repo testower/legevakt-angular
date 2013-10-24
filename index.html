@@ -8,9 +8,10 @@
   <body>
     <h2>Legevakter</h2>
     <div ng-controller="AppController">
+      <p>Search: <input ng-model="query">
       <ul class="unstyled">
-        <li ng-repeat="healthService in healthServices">
-          <span>{{healthService.displayName}}</span>
+        <li ng-repeat="healthService in healthServices | filter:query">
+          <label>{{healthService.displayName}}</label>
         </li>
       </ul>
     </div>
