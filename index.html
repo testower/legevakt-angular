@@ -1,0 +1,19 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="http://www.parsecdn.com/js/parse-1.2.9.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body>
+    <h2>Legevakter</h2>
+    <div ng-controller="AppController">
+      <ul class="unstyled">
+        <li ng-repeat="healthService in healthServices">
+          <span>{{healthService.displayName}}</span>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
+</html>
