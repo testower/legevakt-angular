@@ -1,11 +1,15 @@
 <!doctype html>
 <html lang="no" ng-app="myApp">
   <head>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-      <script src="ui-bootstrap-tpls-0.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-sanitize.js"></script>
+    <script src="/js/ui-bootstrap-tpls-0.6.0.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.9.min.js"></script>
-    <script src="app.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+    <script src="/js/opening-hours.js"></script>
+    <script src="/js/app.js"></script>
   </head>
   <body>
 
@@ -13,17 +17,28 @@
           <h2>Legevakter</h2>
                   <div class="well">
                     <form class="form-search">
-                      <input type="text" class="input-medium search-query" ng-model="query" placeholder="Søk...">
+                      <input type="text" class="input-medium search-query" ng-model="query.$" placeholder="Søk...">
                     </form>
                   </div>
 
-                  <div class="well"
-                       ng-click="healthService.shouldHideDetails = !healthService.shouldHideDetails"
-                       ng-repeat="healthService in healthServices | filter:query">
-                      <label>{{ healthService.displayName | uppercase }}</label>
+                  <div ng-click="healthService.shouldHideDetails = !healthService.shouldHideDetails"
+                       ng-repeat="healthService in healthServices | filter:query | orderBy:'place' | limitTo:10"
+                       ng-class="{{['well', 'open-' + isOpen(healthService) ]}}">
+                      <label>
+                          {{ healthService.displayName | uppercase }}
+                      </label>
                       <p ng-hide="healthService.shouldHideDetails">
-                          {{healthService.address}}
+                        <a class="btn btn-mini"
+                           ng-href="{{ healthService.externalUrl }}"
+                           ng-show="{{ healthService.hasExternalUrl }}">
+                            <i class="icon-home"></i>
+                        </a>
+                          {{healthService.address}}<br>
+                          {{healthService.place}}<br>
+                          {{healthService.phone}}<br>
+                          <span ng-bind-html="{{formattedOpeningHours(healthService)}}"></span>
                       </p>
+
                   </div>
       </div>
     </body>

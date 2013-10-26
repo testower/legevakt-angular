@@ -3,7 +3,13 @@
 
 'use strict';
 
-var myApp = angular.module('myApp', ['ui.bootstrap']);
+var myApp = angular.module('myApp', ['ui.bootstrap', 'ngSanitize']);
+
+var OpeningHours = OpeningHoursModule.OpeningHours;
+var OpeningHoursFormatter = OpeningHoursModule.OpeningHoursFormatter;
+var openingHoursFormatter = new OpeningHoursFormatter({
+    separator: "<br />"
+});
 
 myApp.controller('AppController', ['$scope', function ($scope) {
 
@@ -20,9 +26,12 @@ myApp.controller('AppController', ['$scope', function ($scope) {
                         return {
                             displayName: obj.get("HealthServiceDisplayName"),
                             parseObject: obj,
-                            address: obj.get("VisitAddressStreet")
-                                + " "
-                                + obj.get("VisitAddressPostName"),
+                            place: obj.get("VisitAddressPostName"),
+                            address: obj.get("VisitAddressStreet"),
+                            phone: obj.get("HealthServicePhone"),
+                            externalUrl: obj.get("HealthServiceWeb"),
+                            hasExternalUrl: obj.get("HealthServiceWeb") !== null,
+                            openingHours: new OpeningHours(obj.get("SmartOpeningHours")),
                             shouldHideDetails: true
                         };
                     });
@@ -35,5 +44,13 @@ myApp.controller('AppController', ['$scope', function ($scope) {
     }
 
     getHealthServices();
+
+    $scope.isOpen = function (obj) {
+        return obj.openingHours.isOpen();
+    };
+
+    $scope.formattedOpeningHours = function (obj) {
+        return openingHoursFormatter.formattedOpeningHours(obj.openingHours);
+    };
 
 }]);
