@@ -18,7 +18,7 @@
                   </div>
 
                   <div class="well"
-                       ng-click="showDetails(healthService)"
+                       ng-click="healthService.shouldHideDetails = !healthService.shouldHideDetails"
                        ng-repeat="healthService in healthServices | filter:query">
                       <label>{{ healthService.displayName | uppercase }}</label>
                       <p ng-hide="healthService.shouldHideDetails">

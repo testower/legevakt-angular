@@ -5,7 +5,8 @@
 
 var myApp = angular.module('myApp', ['ui.bootstrap']);
 
-myApp.controller('AppController', function AppController($scope) {
+myApp.controller('AppController', ['$scope', function ($scope) {
+
     Parse.initialize("4DECQGbsZc1JkVLi02vuTlRdCaqmB49RC4EDaSIV", "kj3nbsej35OJXCIX1AlV1ILZH8rx8DIqLa1W6g4y");
 
     var HealthService = Parse.Object.extend("HealthService");
@@ -35,7 +36,4 @@ myApp.controller('AppController', function AppController($scope) {
 
     getHealthServices();
 
-    $scope.showDetails = function (healthService) {
-        healthService.shouldHideDetails = !healthService.shouldHideDetails;
-    };
-});
+}]);
