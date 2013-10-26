@@ -1,20 +1,30 @@
 <!doctype html>
-<html ng-app>
+<html lang="no" ng-app="myApp">
   <head>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+      <script src="ui-bootstrap-tpls-0.6.0.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.9.min.js"></script>
     <script src="app.js"></script>
   </head>
   <body>
-    <h2>Legevakter</h2>
-    <div ng-controller="AppController">
-      <p>Search: <input ng-model="query">
-      <ul class="unstyled">
-        <li ng-repeat="healthService in healthServices | filter:query">
-          <label>{{healthService.displayName}}</label>
-        </li>
-      </ul>
-    </div>
-  </body>
-</html>
+
+      <div class="container" ng-controller="AppController">
+          <h2>Legevakter</h2>
+                  <div class="well">
+                    <form class="form-search">
+                      <input type="text" class="input-medium search-query" ng-model="query" placeholder="Søk...">
+                    </form>
+                  </div>
+
+                  <div class="well"
+                       ng-click="showDetails(healthService)"
+                       ng-repeat="healthService in healthServices | filter:query">
+                      <label>{{ healthService.displayName | uppercase }}</label>
+                      <p ng-hide="healthService.shouldHideDetails">
+                          {{healthService.address}}
+                      </p>
+                  </div>
+      </div>
+    </body>
 </html>
