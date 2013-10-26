@@ -8,7 +8,7 @@ var myApp = angular.module('myApp', ['ui.bootstrap', 'ngSanitize']);
 var OpeningHours = OpeningHoursModule.OpeningHours;
 var OpeningHoursFormatter = OpeningHoursModule.OpeningHoursFormatter;
 var openingHoursFormatter = new OpeningHoursFormatter({
-    separator: "<br />"
+    separator: " - "
 });
 
 myApp.controller('AppController', ['$scope', function ($scope) {
