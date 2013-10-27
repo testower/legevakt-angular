@@ -21,11 +21,16 @@
                     </form>
                   </div>
 
-                  <div ng-click="healthService.shouldHideDetails = !healthService.shouldHideDetails"
-                       ng-repeat="healthService in healthServices | filter:query | orderBy:'place' | limitTo:10"
-                       ng-class="{{['well', 'open-' + isOpen(healthService) ]}}">
+                  <div ng-click="healthService.shouldHideDetails
+                                 = !healthService.shouldHideDetails"
+                       ng-repeat="healthService in healthServices | orderBy:'distance' | filter:query | limitTo:10"
+                       ng-class="{{[
+                                    'well',
+                                    'open-' + isOpen(healthService)
+                                 ]}}">
                       <label>
-                          {{ healthService.displayName | uppercase }}
+                          {{ healthService.displayName | uppercase }} -
+                          {{ healthService.distance | number:1 }} km
                       </label>
                       <p ng-hide="healthService.shouldHideDetails">
                         <a class="btn btn-mini"
