@@ -12,39 +12,40 @@
     <script src="js/app.js"></script>
   </head>
   <body>
-
       <div class="container" ng-controller="AppController">
-          <h2>Legevakter</h2>
-                  <div class="well">
-                    <form class="form-search">
-                      <input type="text" class="input-medium search-query" ng-model="query.$" placeholder="Søk...">
-                    </form>
-                  </div>
+          <div class="well">
+              <h2>Legevakter</h2>
 
-                  <div ng-click="healthService.shouldHideDetails
+              <form class="form-search">
+                  <input type="text" class="input-medium search-query" ng-model="query.$" placeholder="Søk...">
+              </form>
+          </div>
+
+          <div ng-click="healthService.shouldHideDetails
                                  = !healthService.shouldHideDetails"
-                       ng-repeat="healthService in healthServices | orderBy:'distance' | filter:query | limitTo:10"
-                       ng-class="{{[
-                                    'well',
-                                    'open-' + isOpen(healthService)
-                                 ]}}">
-                      <label>
-                          {{ healthService.displayName | uppercase }} -
-                          {{ healthService.distance | number:1 }} km
-                      </label>
-                      <p ng-hide="healthService.shouldHideDetails">
-                        <a class="btn btn-mini"
-                           ng-href="{{ healthService.externalUrl }}"
-                           ng-show="{{ healthService.hasExternalUrl }}">
-                            <i class="icon-home"></i>
-                        </a>
-                          {{healthService.address}}<br>
-                          {{healthService.place}}<br>
-                          {{healthService.phone}}<br>
-                          {{formattedOpeningHours(healthService)}}
+               ng-repeat="healthService in healthServices | orderBy:'distance' | filter:query | limitTo:10"
+               ng-class="{{[
+                         'well',
+                         'open-' + isOpen(healthService)
+                         ]}}">
+              <label>
+                  {{ healthService.displayName | uppercase }} -
+                  {{ healthService.distance | number:1 }} km
+              </label>
 
+              <p ng-hide="healthService.shouldHideDetails">
+                  <a class="btn btn-mini"
+                     ng-href="{{ healthService.externalUrl }}"
+                     ng-show="{{ healthService.hasExternalUrl }}">
+                      <i class="icon-home"></i>
+                  </a>
 
-                  </div>
+                  {{healthService.address}}<br>
+                  {{healthService.place}}<br>
+                  {{healthService.phone}}<br>
+                  {{formattedOpeningHours(healthService)}}
+              </p>
+          </div>
       </div>
     </body>
 </html>
